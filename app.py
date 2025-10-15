@@ -4,7 +4,6 @@ from planner import generate_plan
 
 app = FastAPI(title="Smart Task Planner API", version="1.0")
 
-# Allow access from frontend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -18,5 +17,8 @@ def home():
 
 @app.get("/plan/")
 def get_plan(goal: str = Query(..., description="Enter your goal text")):
-    plan = generate_plan(goal)
-    return {"goal": goal, "plan": plan}
+    try:
+        plan = generate_plan(goal)
+        return {"goal": goal, "plan": plan}
+    except Exception as e:
+        return {"goal": goal, "plan": f"❌ Error generating plan: {str(e)}"}
