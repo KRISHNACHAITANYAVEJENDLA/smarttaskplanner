@@ -7,7 +7,7 @@ st.markdown("### Break your goal into actionable tasks using AI reasoning.")
 
 goal = st.text_input("🎯 Enter your goal:", placeholder="e.g., Launch a product in 2 weeks")
 
-API_URL = "https://smarttaskplanner-backend.onrender.com/plan/"
+API_URL = "https://smarttaskplanner-backend.onrender.com/plan?"
   # Fixed consistent backend URL
 
 if st.button("Generate Plan"):
