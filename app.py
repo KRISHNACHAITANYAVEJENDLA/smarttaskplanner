@@ -16,6 +16,9 @@ def home():
     return {"message": "✅ Smart Task Planner API is running"}
 
 @app.get("/plan/")
-def get_plan(goal: str = Query(..., description="Enter your goal")):
-    plan = generate_plan(goal)
-    return {"goal": goal, "plan": plan}
+def get_plan(goal: str = Query(..., description="Enter your goal text")):
+    try:
+        plan = generate_plan(goal)
+        return {"goal": goal, "plan": plan}
+    except Exception as e:
+        return {"goal": goal, "plan": f"❌ Error: {str(e)}"}
