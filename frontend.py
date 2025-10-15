@@ -3,11 +3,11 @@ import requests
 
 st.set_page_config(page_title="Smart Task Planner", layout="wide")
 st.title("🧠 Smart Task Planner")
-st.markdown("### Break your goal into actionable tasks using AI-like reasoning.")
+st.markdown("### Break your goal into actionable tasks using AI reasoning.")
 
 goal = st.text_input("🎯 Enter your goal:", placeholder="e.g., Launch a product in 2 weeks")
 
-API_URL = "https://smarttaskplanner-backend.onrender.com/plan/"  # Replace with your backend URL
+API_URL = "https://smarttaskplanner-85vq.onrender.com/plan/"  # ✅ use your exact backend URL, must end with /plan/
 
 if st.button("Generate Plan"):
     if goal.strip():
