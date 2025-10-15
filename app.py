@@ -16,6 +16,6 @@ def home():
     return {"message": "✅ Smart Task Planner API is running"}
 
 @app.get("/plan/")
-def get_plan(goal: str = Query(..., description="Enter your goal text")):
+def get_plan(goal: str = Query(..., description="Enter your goal")):
     plan = generate_plan(goal)
     return {"goal": goal, "plan": plan}
