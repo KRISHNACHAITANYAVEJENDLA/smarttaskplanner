@@ -7,8 +7,7 @@ st.markdown("### Break your goal into actionable tasks using AI reasoning.")
 
 goal = st.text_input("🎯 Enter your goal:", placeholder="e.g., Launch a product in 2 weeks")
 
-API_URL = "https://smarttaskplanner-backend.onrender.com/plan?"
-  # Fixed consistent backend URL
+API_URL = "https://smarttaskplanner-85vq.onrender.com/plan/"  # ✅ Corrected backend URL
 
 if st.button("Generate Plan"):
     if goal.strip():
@@ -22,7 +21,7 @@ if st.button("Generate Plan"):
                 else:
                     st.error(f"❌ API Error: {res.status_code}")
             except requests.exceptions.ConnectionError:
-                st.error("⚠️ Could not connect to backend. Please make sure FastAPI is running on port 8000.")
+                st.error("⚠️ Could not connect to backend. Please make sure FastAPI is running.")
             except requests.exceptions.Timeout:
                 st.error("⏰ Request timed out. Try again after a few seconds.")
     else:
