@@ -1,26 +1,19 @@
-import os
-from openai import OpenAI
+import datetime
 
 def generate_plan(goal: str):
-    api_key = os.getenv("OPENAI_API_KEY")
-    if not api_key:
-        return "❌ Error: OPENAI_API_KEY is missing or invalid."
+    tasks = [
+        ("Research & Planning", "Analyze requirements and plan the execution.", 2),
+        ("Design", "Create wireframes and mockups.", 2),
+        ("Development", "Implement the core features.", 5),
+        ("Testing", "Perform QA and bug fixes.", 2),
+        ("Launch", "Deploy and review performance.", 1)
+    ]
 
-    try:
-        client = OpenAI(api_key=api_key)
-        prompt = f"""
-        Break down this goal into actionable tasks with dependencies, durations, and deadlines.
-        Output each task in a clean markdown list.
-        Goal: {goal}
-        """
+    start_date = datetime.date.today()
+    plan = []
+    for i, (name, desc, days) in enumerate(tasks, start=1):
+        deadline = start_date + datetime.timedelta(days=sum(t[2] for t in tasks[:i]))
+        plan.append(f"**Task {i}: {name}**  \n📄 {desc}  \n⏳ Duration: {days} days  \n📅 Deadline: {deadline}\n")
 
-        response = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.7
-        )
-
-        plan = response.choices[0].message.content.strip()
-        return plan if plan else "⚠️ No response from model."
-    except Exception as e:
-        return f"❌ Error generating plan: {str(e)}"
+    plan_text = "\n".join(plan)
+    return f"### Goal: {goal}\n\n{plan_text}"
